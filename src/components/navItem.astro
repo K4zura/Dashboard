@@ -8,7 +8,7 @@ const { pathname } = Astro.url;
 ---
 
 <li class="relative group flex text-lg font-semibold ml-3">
-    <a href={href} class="flex gap-2 flex-1 py-3 px-4 z-20 select-none"><slot/></a>
+    <a href={href} view-transition class="flex gap-2 flex-1 py-3 px-4 z-20 select-none"><slot/></a>
     <div class={`absolute group-hover:z-10 top-0 right-0 ${pathname.startsWith(href) ? "left-0 bg-dark" : "left-full group-hover:left-0 bg-dark/75"}
                 transition-all duration-150 h-full rounded-l-2xl pointer-events-none`}>
         <div class={`absolute -top-5 w-full h-5 bg-dark before:top-0 right-0

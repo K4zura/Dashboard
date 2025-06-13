@@ -5,6 +5,8 @@ import Expense from "@icons/Expense.astro";
 import Income from "@icons/Income.astro";
 import LogOut from "@icons/LogOut.astro";
 import Savings from "@icons/Savings.astro";
+import imageProfile from "@imgs/jinwoo.avif"
+import { Image } from 'astro:assets';
 
 const links = [
 	{ name: "Dashboard", href: "/dashboard" },
@@ -13,10 +15,10 @@ const links = [
 	{ name: "Savings", href: "/savings" },
 ];
 ---
-<aside class="flex flex-col gap-4 flex-1 justify-between bg-primary rounded-lg">
-    <section class="relative flex flex-col gap-1.5 flex-1 mx-4 my-2">
-        <picture class="aspect-square rounded-full mx-3 border-8 border-dark">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F5a%2Ffd%2F51%2F5afd51a60ec89cec468fc8bcb847e920.jpg&f=1&nofb=1&ipt=6aea0351e077c353f9b0a5b9a6b04d6503de2e1721d41eb136b9e36aae1cf3ae" class="size-full object-cover object-center rounded-full" alt="">
+<aside class="flex flex-col gap-4 flex-1 justify-between bg-primary rounded-lg overflow-x-hidden">
+    <section class="relative flex flex-col gap-1.5 flex-1 mx-4 my-4">
+        <picture class="rounded-full mx-1 border-[6px] overflow-hidden border-dark">
+            <Image loading="eager" class:list={`aspect-square object-cover object-center`} src={imageProfile} alt="A starry night sky." />
         </picture>
         <h2 class="font-bold text-center">SALDO: <span class="text-xl">0</span></h2>
     </section>
