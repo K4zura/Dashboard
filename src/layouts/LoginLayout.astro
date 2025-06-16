@@ -1,6 +1,6 @@
 ---
 import NavBar from "@components/navBar.astro";
-import "@styles/global.css";
+import "./src/styles/global.css";
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -34,42 +34,19 @@ const mySlide = {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/minicon.png" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>K4zura - {title}</title>
 		<ClientRouter/>
 	</head>
-	<body id="app" class="relative h-screen w-screen p-3 gap-3">
-		<header class="[grid-area:header] px-4 py-1 flex justify-between">
-			<h2 class="text-4xl font-extrabold">Hi! Jinwoo</h2>
-			<div class="flex gap-8 pr-3">
-				<div class="size-8 rotate-45 bg-white cursor-pointer"></div>
-				<div class="size-8 rotate-45 bg-white cursor-pointer"></div>
-				<div class="size-8 rotate-45 bg-white cursor-pointer"></div>
-			</div>
-		</header>
-		
-		<aside class="[grid-area:aside] flex flex-col overflow-y-auto">
-			<NavBar/>
-		</aside>
-
-		<main transition:animate={mySlide} class="[grid-area:main] overflow-y-auto">
+	<body id="app" class="relative flex items-center justify-center h-screen w-screen p-3">
+		<main transition:animate={mySlide} class="flex flex-col items-center justify-between overflow-y-auto h-8/12 min-h-3xl w-md bg-primary rounded-lg p-4">
+            <h1 class="text-2xl font-bold">LOGIN</h1>
 			<slot />
 		</main>
 	</body>
 </html>
 
-<style>
-	html,
-	#app {
-		display: grid;
-		grid-template-areas: 
-			"aside header header"
-			"aside main main";
-			grid-template-columns: 210px 1fr;
-			grid-template-rows: auto 1fr;
-	}
-</style>
 <style is:global>
 	html {
 		font-family: "CircularStd", system-ui, sans-serif;
