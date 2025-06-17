@@ -1,10 +1,33 @@
 ---
-import Layout from "@layouts/Layout.astro";
 import LoginLayout from "@layouts/LoginLayout.astro";
+import { getSession } from "auth-astro/server";
 
+const session = await getSession(Astro.request);
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <LoginLayout title="Home">
+    <h1>Iniciar Sesion</h1>
+    {
+        session ? (
+            <div>
+                <p>Hola, {session.user?.name}</p>
+                <button id="logout" class="cursor-pointer bg-secondary px-4 py-2 rounded">Logout</button>
+            </div>
+        ) : (
+            <button id="login" class="cursor-pointer bg-secondary px-4 py-2 rounded">Login</button>
+        )
+    }
 </LoginLayout>
+
+<script>
+    import { $ } from '@utils/dom-selector'
+    const { signIn, signOut } = await import('auth-astro/client')
+
+    const $login = $('#login')
+    const $logout = $('#logout')
+
+    if ($login) $login.onclick  = () => signIn("google")
+    if ($logout) $logout.onclick = () => signOut()
+</script>
