@@ -9,4 +9,16 @@ export default defineConfig({
 			clientSecret: import.meta.env.GOOGLE_CLIENT_SECRET,
 		}),
 	],
+	pages: {
+		signIn: "/dashboard", // opcional: página personalizada de login
+		signOut: "/", // al cerrar sesión
+		error: "/", // si falla el login
+		newUser: "/dashboard", // redirige aquí si es un nuevo usuario
+	},
+	callbacks: {
+		async redirect({ url, baseUrl }) {
+			// Puedes forzar siempre a redirigir a /dashboard
+			return "/dashboard";
+		},
+	},
 });

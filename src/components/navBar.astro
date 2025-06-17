@@ -1,12 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import NavItem from "@components/navItem.astro";
 import Dashboard from "@icons/Dashboard.astro";
 import Expense from "@icons/Expense.astro";
 import Income from "@icons/Income.astro";
 import LogOut from "@icons/LogOut.astro";
 import Savings from "@icons/Savings.astro";
-import imageProfile from "@imgs/jinwoo.avif"
-import { Image } from 'astro:assets';
+import imageProfile from "@imgs/jinwoo.avif";
 
 const links = [
 	{ name: "Dashboard", href: "/dashboard" },
@@ -14,11 +14,22 @@ const links = [
 	{ name: "Expense", href: "/expense" },
 	{ name: "Savings", href: "/savings" },
 ];
+
+interface Props {
+	user: {
+		name: string;
+		email: string;
+		image: string;
+	};
+}
+
+const { user } = Astro.props as Props;
 ---
 <aside class="flex flex-col gap-4 flex-1 justify-between bg-primary rounded-lg overflow-x-hidden">
     <section class="relative flex flex-col gap-1.5 flex-1 mx-4 my-4">
         <picture class="rounded-full mx-1 border-[6px] overflow-hidden border-dark">
-            <Image loading="eager" class:list={`aspect-square object-cover object-center`} src={imageProfile} alt="A starry night sky." />
+            <Image loading="eager" inferSize={true} class:list={`aspect-square size-full object-cover object-center`} src={user.image} alt="A starry night sky." />
+            <!-- <Image loading="eager" class:list={`aspect-square object-cover object-center`} src={imageProfile} alt="A starry night sky." /> -->
         </picture>
         <h2 class="font-bold text-center">SALDO: <span class="text-xl">0</span></h2>
     </section>
@@ -49,9 +60,25 @@ const links = [
     </nav>
 
     <footer class="flex items-end justify-center flex-1 mx-4 mb-3">
-        <button class="flex gap-2 font-bold cursor-pointer py-2 pr-2 hover:pr-7 transition-all duration-200" onclick="alert('Saliste')">
+        <button id="logout" class="flex gap-2 font-bold cursor-pointer py-2 pr-2 hover:pr-7 transition-all duration-200">
             <LogOut class:list={'text-dark'}/>
             Log Out
         </button>
     </footer>
 </aside>
+
+<script>
+    import { $ } from '@utils/dom-selector'
+    const { signOut } = await import('auth-astro/client')
+
+    const $logout = $('#logout')
+    if ($logout) $logout.onclick = () => {
+        signOut()
+            .then(() => {
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                console.error("Error during logout:", error);
+            });
+    };
+</script>
